@@ -6,7 +6,7 @@ from pillow_heif import register_heif_opener
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import ttk
-from tkinter import Label,Button,Tk
+from tkinter import Label,Button,Tk, PhotoImage
 import shutil
 import time
 
@@ -73,7 +73,7 @@ def Lancer():
         MessageBas(1)
     else :
         MessageBas(3)
-        if listeChoix.get()=="Creer une copie du dossier d'origine": #Si on veut faire une copie
+        if listeChoix.get()=="Create a copy of the folder": #Si on veut faire une copie
             try:
                 Chemin= CopierDossier(Chemin)
                 ConversionDossierReccurisf(Chemin)
@@ -93,61 +93,79 @@ def Lancer():
 def MessageBas(message=0):
     """Masque ou affiche le message qu'il faut en bas de la fenetre"""
     #On masque l'ancien
-    Label(Fenetre).place(x=0,y=410,height=90,width=300)
+    Label(Fenetre, bg="#00405b").place(x=230,y=417,height=83,width=300)
 
     if message==1: #Dossier Non Selectionné
-        Label(Fenetre,text="Veuillez sélectionner un dossier à convertir",fg="red",font="Arial 10").place(x=0,y=410,height=90,width=300)
+        Label(Fenetre,text="Veuillez sélectionner un dossier à convertir",fg="red",font="Arial 10",bg="#00405b").place(x=230,y=417,height=83,width=300)
 
     if message==2: #Dossier de copie déja existant
-        Label(Fenetre,text="Le dossier convertit existe déja\nsupprimez le pour recommencer",fg="red",font="Arial 10").place(x=0,y=410,height=90,width=300)
+        Label(Fenetre,text="Le dossier convertit existe déja\nsupprimez le pour recommencer",fg="red",font="Arial 10",bg="#00405b").place(x=230,y=417,height=83,width=300)
 
     if message==3: #Conversion en cours
-        Label(Fenetre,text="Conversion en cours...\nDétails dans l'invite de commande",fg="black",font="Arial 10").place(x=0,y=410,height=90,width=300)
+        Label(Fenetre,text="Conversion en cours...\nDétails dans l'invite de commande",fg="black",font="Arial 10",bg="#00405b").place(x=230,y=417,height=83,width=300)
 
     if message==4: #Conversion terminée
-        Label(Fenetre,text="Conversion terminée",fg="green",font="Arial 10").place(x=0,y=410,height=90,width=300)
+        Label(Fenetre,text="Conversion terminée",fg="green",font="Arial 10",bg="#00405b").place(x=230,y=417,height=83,width=300)
 
 def NomDossierAffiche(chemin):
     """Masque ou affiche le nom du dossier selectionné"""
     #On masque l'ancien
-    Label(text="", font="Arial 10",justify="left").place(width=300, height=45, x=0, y=175)
+    Label(text="", font="Arial 10",justify="left",bg="#00405b").place(width=300, height=45, x=230, y=175)
     #On recupere et affiche le nouveau
     NomDossier=chemin.split("/")[-1]
-    Label(text=NomDossier, font="Arial 10", justify="left").place(width=300, height=45, x=10, y=175)
+    Label(text=NomDossier, font="Arial 10", justify="left",bg="#00405b").place(width=300, height=45, x=230, y=175)
 
 
+#On cherche où est le clic pour afficher la bonne fenetre
+def clic(event):
+    """ Gestion de l'événement clic gauche sur la zone graphique """
+    # position du pointeur de la souris
+    X = event.x
+    Y = event.y
+    if X>=287 and X<=474 and Y>=85 and Y<=129 :
+        OuvrirDossier()
+    elif X>=287 and X<=474 and Y>=372 and Y<=416 :
+        Lancer()
 
 
 
 Fenetre=tk.Tk()
 Fenetre.title("HEIC to JPEG")
-Fenetre.geometry("300x500")
-
-LabelTitre=Label(text="HEIC to JPEG", font="Arial 16")
-LabelTitre.place(x=80 ,y=20)
-
-BoutonChoixDossier=Button(Fenetre, text="Choix du dossier",font="Arial 14",command=OuvrirDossier)
-BoutonChoixDossier.place(x=70,y=80)
-
-labelDossierChoisi=Label(text="Dossier séléctionné :", font="Arial 12")
-labelDossierChoisi.place(x=10,y=150)
+Fenetre.geometry("530x500")
+Fenetre.configure(background="#00405b")
+Fenetre.resizable(width=False, height=False)
+Fenetre.bind('<Button-1>', clic) #Au clic, on renvoie à la fonction
 
 
-labelOption=Label(text="Option d'enregistrement :", font="Arial 12")
-labelOption.place(x=10,y=225)
+Fond=PhotoImage(file="assets/Fond.png")
+LabelFond=Label(image=Fond)
+LabelFond.place(x=-2 ,y=-2)
 
-listeChoix=ttk.Combobox(Fenetre,values=["Creer une copie du dossier d'origine","Remplacer le dossier d'origine"], state="readonly")
-listeChoix.set("Creer une copie du dossier d'origine")
-listeChoix.place(x=10,y=250, width=280)
+##LabelTitre=Label(text="HEIC to JPEG", font="Arial 16")
+##LabelTitre.place(x=80 ,y=20)
 
-labelExplicationsOptions1=Label(text="- Creer une copie est plus sûr si vous n'en avez \n pas déja une copie des photos de ce dossier.", font="Arial 10", justify="left")
-labelExplicationsOptions2=Label(text="- Remplacer le dossier est plus rapide que d'en \n faire une copie si le nombre de photos est gros.", font="Arial 10", justify="left")
+##BoutonChoixDossier=Button(Fenetre, text="Choix du dossier",font="Arial 14",command=OuvrirDossier)
+##BoutonChoixDossier.place(x=70,y=80)
 
-labelExplicationsOptions1.place(x=10,y=275)
-labelExplicationsOptions2.place(x=10,y=310)
+labelDossierChoisi=Label(text="Selected folder :", font="Arial 12",bg="#00405b", )
+labelDossierChoisi.place(x=240,y=150)
 
-BoutonConvert=Button(Fenetre, text="CONVERTIR",font="Arial 14",command=Lancer)
-BoutonConvert.place(x=85,y=370)
+
+labelOption=Label(text="Settings:", font="Arial 12",bg="#00405b")
+labelOption.place(x=240,y=225)
+
+listeChoix=ttk.Combobox(Fenetre,values=["Create a copy of the folder","Replace the existing folder"], state="readonly")
+listeChoix.set("Create a copy of the folder")
+listeChoix.place(x=241,y=250, width=280)
+
+labelExplicationsOptions1=Label(text="- Create a copy the folder is safer if you didn’t\n already have a copy of the pictures of this folder.", font="Arial 10", justify="left",bg="#00405b")
+labelExplicationsOptions2=Label(text="- Replace the existing folder is faster than create\n a copy if the number of pictures is big.", font="Arial 10", justify="left",bg="#00405b")
+
+labelExplicationsOptions1.place(x=240,y=275)
+labelExplicationsOptions2.place(x=240,y=310)
+
+##BoutonConvert=Button(Fenetre, text="CONVERTIR",font="Arial 14",command=Lancer)
+##BoutonConvert.place(x=85,y=370)
 
 Fenetre.mainloop()
 

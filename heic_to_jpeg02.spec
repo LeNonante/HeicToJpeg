@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['D:\\Aurelien\\Documents\\PROJETS\\HEICJPG\\heic_to_jpeg02.py'],
+    ['D:\\Aurelien\\Documents\\PROJETS\\GIT\\HeicToJpeg\\heic_to_jpeg02.py'],
     pathex=[],
     binaries=[],
     datas=[],

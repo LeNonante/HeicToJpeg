@@ -1,3 +1,3 @@
-pyinstaller --noconfirm --onefile --console --hidden-import "pillow_heif" --hidden-import "tkinter" --hidden-import "Pillow"  "D:\Aurelien\Documents\PROJETS\HEICJPG\heic_to_jpeg.py"
+pyinstaller --noconfirm --onefile --console --hidden-import "pillow_heif" --hidden-import "tkinter" --hidden-import "Pillow"  "D:\Aurelien\Documents\PROJETS\GIT\HeicToJpeg\heic_to_jpeg02.py"
 
 Il est créer dans c/user/aurelien/dist
