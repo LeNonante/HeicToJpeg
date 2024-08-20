@@ -158,8 +158,8 @@ listeChoix=ttk.Combobox(Fenetre,values=["Create a copy of the folder","Replace t
 listeChoix.set("Create a copy of the folder")
 listeChoix.place(x=241,y=250, width=280)
 
-labelExplicationsOptions1=Label(text="- Create a copy the folder is safer if you didn’t\n already have a copy of the pictures of this folder.", font="Arial 10", justify="left",bg="#00405b")
-labelExplicationsOptions2=Label(text="- Replace the existing folder is faster than create\n a copy if the number of pictures is big.", font="Arial 10", justify="left",bg="#00405b")
+labelExplicationsOptions1=Label(text="- Creating a copy the folder is safer if you didn’t\n already have a copy of the pictures of this folder.", font="Arial 10", justify="left",bg="#00405b")
+labelExplicationsOptions2=Label(text="- Replacing the existing folder is faster than creating\n a copy if the number of pictures is big.", font="Arial 10", justify="left",bg="#00405b")
 
 labelExplicationsOptions1.place(x=240,y=275)
 labelExplicationsOptions2.place(x=240,y=310)
